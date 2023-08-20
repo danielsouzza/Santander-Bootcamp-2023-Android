@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">FirstApp-Dio</string>
+
+    <!-- pt -->
+    <string name="title_home_pt">Olá mundo</string>
+    <string name="title_btn_pt">Mudar idioma</string>
+
+    <!-- en -->
+    <string name="title_home_en">Hello world</string>
+    <string name="title_btn_en">change language</string>
 </resources>
