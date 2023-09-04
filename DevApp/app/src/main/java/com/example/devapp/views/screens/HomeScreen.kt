@@ -1,6 +1,5 @@
 package com.example.devapp.views.screens
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -29,13 +28,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
-import com.example.devapp.R
 import com.example.devapp.data.model.Repository
 import com.example.devapp.data.model.User
 import com.example.devapp.ui.theme.Background_1
@@ -45,7 +42,7 @@ import com.example.devapp.views.viewModel.MainViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun RepositoriesScreen(
+fun HomeScreen(
     navController: NavHostController,
     viewModel: MainViewModel
 ){
@@ -80,7 +77,9 @@ fun RepositoriesScreen(
                     verticalArrangement = Arrangement.spacedBy(10.dp)
                 ){
                     items(repositories){repository->
-                        RepositoryItem(repository = repository)
+                        RepositoryItem(repository = repository){
+                            viewModel.shareRepository(repository.htmlUrl)
+                        }
                     }
                 }
             }
@@ -90,7 +89,8 @@ fun RepositoriesScreen(
 
 @Composable
 fun RepositoryItem(
-    repository: Repository
+    repository: Repository,
+    shareUrl: ()-> Unit
 ){
     Surface(
         shape = RoundedCornerShape(20.dp),
@@ -114,7 +114,7 @@ fun RepositoryItem(
                 modifier = Modifier
                     .size(25.dp)
                     .clip(CircleShape)
-                    .clickable { }
+                    .clickable { shareUrl() }
             )
         }
     }
@@ -145,7 +145,8 @@ fun TopBar(user: User){
                     .clip(CircleShape)
                     .size(60.dp),
                 model = user.avatarUrl,
-                contentDescription = null)
+                contentDescription = null
+            )
 
         }
     }
